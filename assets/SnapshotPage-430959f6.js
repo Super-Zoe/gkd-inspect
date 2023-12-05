@@ -1,9 +1,9 @@
-import { _ as _sfc_main$6, e as exportSnapshotAsJpgUrl, f as exportSnapshotAsZipUrl } from "./ActionCard.vue_vue_type_script_setup_true_lang-bda27d9e.js";
-import { f as fadeInHeightExpandTransition, c as copy, m as message, b as githubJpgStorage, g as githubUrlToSelfUrl, e as githubZipStorage, a as snapshotStorage, h as gmOk, i as screenshotStorage, j as delay } from "./storage-00dd3e29.js";
-import { d as defineComponent, n as h, p as commonLight, q as cB, v as cM, x as cE, y as c, z as useConfig, A as ref, c as computed, B as useTheme, C as provide, D as useRtl, E as useThemeClass, G as createInjectionKey, H as call, I as useFalseUntilTruthy, J as toRef, K as withDirectives, L as vShow, M as NFadeInExpandTransition, O as createId, P as useMemo, Q as inject, S as throwError, T as resolveSlotWithProps, U as NBaseIcon, V as resolveWrappedSlotWithProps, W as composite, X as createTheme, Y as scrollbarLight, Z as changeColor, _ as cNotM, $ as insideModal, a0 as insidePopover, a1 as createKey, a2 as NIconSwitchTransition, a3 as NBaseLoading, a4 as render, a5 as isBrowser, a6 as onMounted, a7 as repeat, a8 as pxfy, a9 as iconSwitchTransition, w as watchEffect, e as watch, aa as getMargin, ab as depx, ac as XScrollbar, ad as resolveSlot, ae as nextTick, a as shallowReactive, s as shallowRef, af as onUnmounted, ag as createBlock, h as createBaseVNode, ah as renderSlot, ai as normalizeStyle, aj as normalizeClass, ak as Teleport, o as openBlock, g as withCtx, b as createVNode, u as unref, f as createElementBlock, al as renderList, F as Fragment, l as toDisplayString, m as createCommentVNode, k as createTextVNode, i as withKeys, j as NButton, am as withModifiers, an as useRoute, ao as useRouter } from "./index-235f5a3e.js";
-import { e as useMergedState, C as ChevronRightIcon, f as checkboxLight, g as emptyLight, h as NCheckbox, i as happensIn, V as VVirtualList, j as createTreeMate, k as flatten, l as createIndexGetter, m as NEmpty, n as NTooltip, d as NIcon, o as NEllipsis, p as findNodeByXy, c as NSpace, q as NRadio, r as NRadioGroup, N as NInput, a as NInputGroup, s as getNodeLabel, t as dayjs, v as getDevice, w as listToTree } from "./node-c1756ecf.js";
-import { e as errorTry, a as errorWrap, p as parseSelector, l as lib, u as useTitle } from "./index-2bb4cdf2.js";
-import "./jszip.min-9f22f6d7.js";
+import { _ as _sfc_main$6, e as exportSnapshotAsJpgUrl, f as exportSnapshotAsZipUrl } from "./ActionCard.vue_vue_type_script_setup_true_lang-d948deff.js";
+import { f as fadeInHeightExpandTransition, c as copy, m as message, b as githubJpgStorage, g as githubUrlToSelfUrl, e as githubZipStorage, a as snapshotStorage, h as gmOk, i as screenshotStorage, j as delay } from "./storage-71d9086d.js";
+import { d as defineComponent, n as h, p as commonLight, q as cB, v as cM, x as cE, y as c, z as useConfig, A as ref, c as computed, B as useTheme, C as provide, D as useRtl, E as useThemeClass, G as createInjectionKey, H as call, I as useFalseUntilTruthy, J as toRef, K as withDirectives, L as vShow, M as NFadeInExpandTransition, O as createId, P as useMemo, Q as inject, S as throwError, T as resolveSlotWithProps, U as NBaseIcon, V as resolveWrappedSlotWithProps, W as composite, X as createTheme, Y as scrollbarLight, Z as changeColor, _ as cNotM, $ as insideModal, a0 as insidePopover, a1 as createKey, a2 as NIconSwitchTransition, a3 as NBaseLoading, a4 as render, a5 as isBrowser, a6 as onMounted, a7 as repeat, a8 as pxfy, a9 as iconSwitchTransition, w as watchEffect, e as watch, aa as getMargin, ab as depx, ac as XScrollbar, ad as resolveSlot, ae as nextTick, a as shallowReactive, s as shallowRef, af as onUnmounted, ag as createBlock, h as createBaseVNode, ah as renderSlot, ai as normalizeStyle, aj as normalizeClass, ak as Teleport, o as openBlock, g as withCtx, b as createVNode, u as unref, f as createElementBlock, al as renderList, F as Fragment, l as toDisplayString, m as createCommentVNode, k as createTextVNode, i as withKeys, j as NButton, am as withModifiers, an as useRoute, ao as useRouter } from "./index-df0b30b5.js";
+import { e as useMergedState, C as ChevronRightIcon, f as checkboxLight, g as emptyLight, h as NCheckbox, i as happensIn, V as VVirtualList, j as createTreeMate, k as flatten, l as createIndexGetter, m as NEmpty, n as NTooltip, d as NIcon, o as NEllipsis, p as findNodeByXy, c as NSpace, q as NRadio, r as NRadioGroup, N as NInput, a as NInputGroup, s as getNodeLabel, t as dayjs, v as getDevice, w as listToTree } from "./node-8fda318c.js";
+import { e as errorTry, a as errorWrap, p as parseSelector, l as lib, u as useTitle } from "./index-b6ecc2e7.js";
+import "./jszip.min-9024b065.js";
 function createDataKey(key) {
   return typeof key === "string" ? `s-${key}` : `n-${key}`;
 }
@@ -2696,7 +2696,6 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const DraggableCard_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$4 = /* @__PURE__ */ createBaseVNode("th", null, "Name", -1);
 const _hoisted_2$2 = /* @__PURE__ */ createBaseVNode("th", null, "Value", -1);
 const _hoisted_3$2 = [
@@ -3614,7 +3613,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           key: 2,
           focusNode: focusNode.value
         }, null, 8, ["focusNode"])) : createCommentVNode("", true),
-        rootNode.value ? (openBlock(), createBlock(_sfc_main$2, {
+        rootNode.value && snapshot.value ? (openBlock(), createBlock(_sfc_main$2, {
           key: 3,
           snapshot: snapshot.value,
           rootNode: rootNode.value,

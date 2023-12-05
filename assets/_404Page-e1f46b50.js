@@ -1,5 +1,12 @@
-import { d as defineComponent, an as useRoute, f as createElementBlock, u as unref, l as toDisplayString, h as createBaseVNode, am as withModifiers, o as openBlock } from "./index-235f5a3e.js";
-const _hoisted_1 = { class: "_404Page" };
+import { d as defineComponent, an as useRoute, f as createElementBlock, u as unref, l as toDisplayString, h as createBaseVNode, am as withModifiers, o as openBlock } from "./index-df0b30b5.js";
+const _hoisted_1 = {
+  flex: "",
+  "flex-col": "",
+  "flex-items-center": "",
+  "w-100vw": "",
+  "pt-50px": "",
+  "gap-20px": ""
+};
 const _hoisted_2 = { key: 0 };
 const _hoisted_3 = { key: 1 };
 const _sfc_main = /* @__PURE__ */ defineComponent({
@@ -18,15 +25,6 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _404Page_vue_vue_type_style_index_0_scoped_e1ecd3ed_lang = "";
-const _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-const _404Page = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-e1ecd3ed"]]);
 export {
-  _404Page as default
+  _sfc_main as default
 };

@@ -1,8 +1,8 @@
-import { s as shallowRef, d as defineComponent, ao as useRouter, a6 as onMounted, t as toValidURL, w as watchEffect, a as shallowReactive, e as watch, aq as resolveComponent, f as createElementBlock, b as createVNode, g as withCtx, u as unref, h as createBaseVNode, F as Fragment, j as NButton, k as createTextVNode, o as openBlock, N as NModal, ar as isRef, i as withKeys, l as toDisplayString, m as createCommentVNode } from "./index-235f5a3e.js";
-import { l as enhanceFetch, m as message, j as delay, a as snapshotStorage, i as screenshotStorage, p as pLimit } from "./storage-00dd3e29.js";
-import { u as useTitle, b as useStorage, c as useDebounceFn, a as errorWrap, d as checkSelector, l as lib } from "./index-2bb4cdf2.js";
-import { u as useSnapshotColumns, a as NSelect, N as NDataTable } from "./table-ad72f278.js";
-import { u as useTask, x as useBatchTask, c as NSpace, N as NInput, h as NCheckbox, d as NIcon, a as NInputGroup } from "./node-c1756ecf.js";
+import { s as shallowRef, d as defineComponent, ao as useRouter, a6 as onMounted, t as toValidURL, w as watchEffect, a as shallowReactive, e as watch, aq as resolveComponent, f as createElementBlock, b as createVNode, g as withCtx, u as unref, h as createBaseVNode, F as Fragment, j as NButton, k as createTextVNode, o as openBlock, N as NModal, ar as isRef, i as withKeys, l as toDisplayString, m as createCommentVNode } from "./index-df0b30b5.js";
+import { l as enhanceFetch, m as message, j as delay, a as snapshotStorage, i as screenshotStorage, p as pLimit } from "./storage-71d9086d.js";
+import { u as useTitle, b as useStorage, c as useDebounceFn, a as errorWrap, d as checkSelector, l as lib } from "./index-b6ecc2e7.js";
+import { u as useSnapshotColumns, a as NSelect, N as NDataTable } from "./table-9941a21f.js";
+import { u as useTask, x as useBatchTask, c as NSpace, N as NInput, h as NCheckbox, d as NIcon, a as NInputGroup } from "./node-8fda318c.js";
 const useDeviceApi = (initOrigin) => {
   const origin = shallowRef(initOrigin);
   const rpc = async (rpcName, options = {}) => {

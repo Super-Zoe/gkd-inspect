@@ -16352,17 +16352,17 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: () => __vitePreload(() => import("./HomePage-5632f622.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/HomePage-5632f622.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/ActionCard.vue_vue_type_script_setup_true_lang-bda27d9e.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/storage-00dd3e29.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/node-c1756ecf.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/jszip.min-9f22f6d7.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/import-1c0da893.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/table-ad72f278.js"] : void 0, import.meta.url)
+      component: () => __vitePreload(() => import("./HomePage-e4a77c59.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/HomePage-e4a77c59.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/ActionCard.vue_vue_type_script_setup_true_lang-d948deff.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/storage-71d9086d.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/node-8fda318c.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/jszip.min-9024b065.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/import-db3ec019.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/table-9941a21f.js"] : void 0, import.meta.url)
     },
     {
       path: "/snapshot/:snapshotId",
       name: "snapshot",
-      component: () => __vitePreload(() => import("./SnapshotPage-3157f92e.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/SnapshotPage-3157f92e.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/ActionCard.vue_vue_type_script_setup_true_lang-bda27d9e.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/storage-00dd3e29.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/node-c1756ecf.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/jszip.min-9f22f6d7.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/index-2bb4cdf2.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/SnapshotPage-3c2cecee.css"] : void 0, import.meta.url)
+      component: () => __vitePreload(() => import("./SnapshotPage-430959f6.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/SnapshotPage-430959f6.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/ActionCard.vue_vue_type_script_setup_true_lang-d948deff.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/storage-71d9086d.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/node-8fda318c.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/jszip.min-9024b065.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/index-b6ecc2e7.js"] : void 0, import.meta.url)
     },
     {
       path: "/import",
       name: "import",
-      component: () => __vitePreload(() => import("./ImportPage-21674b0a.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/ImportPage-21674b0a.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/storage-00dd3e29.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/import-1c0da893.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/jszip.min-9f22f6d7.js"] : void 0, import.meta.url)
+      component: () => __vitePreload(() => import("./ImportPage-32019896.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/ImportPage-32019896.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/storage-71d9086d.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/import-db3ec019.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/jszip.min-9024b065.js"] : void 0, import.meta.url)
     },
     {
       path: `/import/:github_zip_asset_id`,
@@ -16379,7 +16379,7 @@ const router = createRouter({
     {
       path: "/device",
       name: "device",
-      component: () => __vitePreload(() => import("./DevicePage-fee3235d.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/DevicePage-fee3235d.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/storage-00dd3e29.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/index-2bb4cdf2.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/table-ad72f278.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/node-c1756ecf.js"] : void 0, import.meta.url),
+      component: () => __vitePreload(() => import("./DevicePage-fa8bcfbf.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/DevicePage-fa8bcfbf.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/storage-71d9086d.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/index-b6ecc2e7.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/table-9941a21f.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701761676275/files/dist/assets/node-8fda318c.js"] : void 0, import.meta.url),
       beforeEnter(to, from, next) {
         const u = toValidURL(String(to.query.url));
         if (u) {
@@ -16393,7 +16393,7 @@ const router = createRouter({
     },
     {
       path: "/404",
-      component: () => __vitePreload(() => import("./_404Page-09910a83.js"), true ? ["https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/_404Page-09910a83.js","https://registry.npmmirror.com/@gkd-kit/inspect/0.0.1701678184497/files/dist/assets/_404Page-1bb368b2.css"] : void 0, import.meta.url)
+      component: () => __vitePreload(() => import("./_404Page-e1f46b50.js"), true ? [] : void 0, import.meta.url)
     },
     {
       path: "/:pathMatch(.*)*",
@@ -21156,9 +21156,9 @@ const i18n = createI18n({
   }
 });
 const latestLog = {
-  "hash": "89c3587040084c38367282e3b5d9873649e9355d",
-  "date": "2023-12-04T16:22:37+08:00",
-  "message": "chore: update deps",
+  "hash": "5a5345ad2984109a765ec97048e17b82b53ec19b",
+  "date": "2023-12-05T15:33:57+08:00",
+  "message": "chore: 移除无用样式",
   "refs": "grafted, HEAD -> main, origin/main",
   "body": "",
   "author_name": "lisonge",
