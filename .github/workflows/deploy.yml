@@ -8,6 +8,7 @@ on:
       - 'README.md'
 
 permissions:
+  id-token: write
   contents: write
 
 jobs:
