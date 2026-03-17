@@ -28,7 +28,6 @@ jobs:
       - run: pnpm run build:mirror
       - name: Publish package
         run: |
-          pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           pnpm publish --no-git-checks
 
       - uses: cloudflare/wrangler-action@v3
