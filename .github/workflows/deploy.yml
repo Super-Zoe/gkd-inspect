@@ -27,7 +27,7 @@ jobs:
 
       - run: pnpm exec tsx ./scripts/updateVersion.ts
       - run: pnpm run build:mirror
-      - run: pnpm publish
+      - run: pnpm publish --no-git-checks
 
       - uses: cloudflare/wrangler-action@v3
         with:
