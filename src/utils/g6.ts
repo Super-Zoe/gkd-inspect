@@ -15,4 +15,4 @@ export class AntQuadratic extends Quadratic {
   }
 }
 
-register(ExtensionCategory.EDGE, AntQuadratic.tyoe, AntQuadratic, true);
+register(ExtensionCategory.EDGE, AntQuadratic.tyoe, AntQuadratic);
