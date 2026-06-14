@@ -174,7 +174,9 @@ const copy = async (content: string) => {
       @positiveClick="deleteSnapshot.invoke"
     >
       <template #icon><SvgIcon name="warn" color="red" /></template>
-      <span style="color: #d03050">{{ deleteConfirmText }} </span>
+      <span style="color: #d03050; white-space: pre-line">{{
+        deleteConfirmText
+      }}</span>
       <template #trigger>
         <NTooltip
           :theme-overrides="{
