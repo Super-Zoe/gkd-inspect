@@ -162,7 +162,7 @@ const columns: DataTableColumns<Snapshot> = [
   },
 ];
 
-const checkedRowKeys = shallowRef<number[]>([]);
+const checkedRowKeys = ref<number[]>([]);
 const {
   batchDelete,
   batchDownloadImage,

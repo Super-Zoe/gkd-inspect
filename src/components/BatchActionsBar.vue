@@ -48,9 +48,15 @@ defineProps<{
         </NButton>
       </NSpace>
     </NPopover>
-    <NButton @click="batchDelete.invoke"> 批量删除 </NButton>
+    <NButton
+      :loading="batchDelete.loading"
+      :theme-overrides="{ color: '#D03050', textColor: 'white' }"
+      @click="batchDelete.invoke"
+    >
+      批量删除
+    </NButton>
     <div h-full flex flex-items-center>
-      {{ `已选中 ${checkedCount} 个快照` }}
+      {{ `选中快照x${checkedCount}` }}
     </div>
   </template>
 </template>

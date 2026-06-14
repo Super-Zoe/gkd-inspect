@@ -198,7 +198,7 @@ useEventListener(document.body, 'paste', (e) => {
   }
 });
 
-const checkedRowKeys = shallowRef<number[]>([]);
+const checkedRowKeys = ref<number[]>([]);
 const {
   batchDelete,
   batchDownloadImage,

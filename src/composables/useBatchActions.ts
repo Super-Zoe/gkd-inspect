@@ -47,6 +47,7 @@ export const useBatchActions = (
     await Promise.all(
       checkedRowKeys.value.map((k) => snapshotStorage.removeItem(k)),
     );
+    checkedRowKeys.value = [];
     options.onAfterDelete?.();
   });
 

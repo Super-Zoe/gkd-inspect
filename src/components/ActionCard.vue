@@ -81,14 +81,14 @@ const exportZipUrl = useTask(async () => {
 });
 
 // 5. 删除逻辑
-const deleteSnapshot = async () => {
+const deleteSnapshot = useTask(async () => {
   if (props.onBeforeDelete) {
     await props.onBeforeDelete(props.snapshot);
   }
   await snapshotStorage.removeItem(props.snapshot.id);
   await delay(500);
   props.onDelete();
-};
+});
 
 // 6. 复制链接逻辑
 const copy = async (content: string) => {
@@ -167,8 +167,11 @@ const copy = async (content: string) => {
 
     <NPopconfirm
       v-if="showDelete"
-      :positive-button-props="{ type: 'error' }"
-      @positiveClick="deleteSnapshot"
+      :positive-button-props="{
+        type: 'error',
+        loading: deleteSnapshot.loading,
+      }"
+      @positiveClick="deleteSnapshot.invoke"
     >
       <template #icon><SvgIcon name="warn" color="red" /></template>
       <span style="color: #d03050">{{ deleteConfirmText }} </span>
