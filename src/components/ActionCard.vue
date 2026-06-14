@@ -165,8 +165,13 @@ const copy = async (content: string) => {
       </NSpace>
     </NPopover>
 
-    <NPopconfirm v-if="showDelete" @positiveClick="deleteSnapshot">
-      {{ deleteConfirmText }}
+    <NPopconfirm
+      v-if="showDelete"
+      :positive-button-props="{ type: 'error' }"
+      @positiveClick="deleteSnapshot"
+    >
+      <template #icon><SvgIcon name="warn" color="red" /></template>
+      <span style="color: #d03050">{{ deleteConfirmText }} </span>
       <template #trigger>
         <NTooltip
           :theme-overrides="{

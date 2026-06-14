@@ -425,10 +425,24 @@ const placeholder = `
           class="gkd_code"
           :style="{ width: `240px` }"
           @keyup.enter="connect.invoke"
-        />
-        <NButton :loading="connect.loading" @click="connect.invoke">
-          刷新连接
-        </NButton>
+        >
+          <template #suffix>
+            <NTooltip>
+              <template #trigger>
+                <NButton
+                  text
+                  style="--n-icon-size: 20px"
+                  :loading="connect.loading"
+                  @click="connect.invoke"
+                >
+                  <template #icon><SvgIcon name="refresh" /></template>
+                </NButton>
+              </template>
+              刷新连接
+            </NTooltip>
+          </template>
+        </NInput>
+
         <div
           v-if="serverInfo"
           gkd_code
@@ -449,20 +463,56 @@ const placeholder = `
           :batchShareImageUrl="batchShareImageUrl"
           :batchShareZipUrl="batchShareZipUrl"
         />
-        <NButton
-          :loading="captureSnapshot.loading"
-          @click="captureSnapshot.invoke"
-        >
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              :loading="captureSnapshot.loading"
+              @click="captureSnapshot.invoke"
+            >
+              <template #icon><SvgIcon name="Snapshot" /></template>
+            </NButton>
+          </template>
           捕获快照
-        </NButton>
-        <NButton
-          :loading="downloadAllSnapshot.loading"
-          @click="downloadAllSnapshot.invoke"
-        >
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              :loading="downloadAllSnapshot.loading"
+              @click="downloadAllSnapshot.invoke"
+            >
+              <template #icon><SvgIcon name="Down-all" /></template>
+            </NButton>
+          </template>
           下载所有快照
-        </NButton>
-        <NButton @click="showSubsModel = true"> 修改内存订阅 </NButton>
-        <NButton @click="showSelectorModel = true"> 执行选择器 </NButton>
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              @click="showSubsModel = true"
+            >
+              <template #icon><SvgIcon name="CacheSub" /></template>
+            </NButton>
+          </template>
+          修改内存订阅
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              @click="showSelectorModel = true"
+            >
+              <template #icon><SvgIcon name="Exe-Sel" /></template>
+            </NButton>
+          </template>
+          执行选择器
+        </NTooltip>
       </template>
     </div>
     <NDataTable

@@ -27,7 +27,7 @@ export const useBatchActions = (
 
   const batchDelete = useTask(async () => {
     await new Promise((res, rej) => {
-      dialog.warning({
+      dialog.error({
         title: `删除`,
         content: `是否批量删除 ${checkedRowKeys.value.length} 个快照`,
         negativeText: `取消`,
