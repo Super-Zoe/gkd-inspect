@@ -150,6 +150,7 @@ const columns: DataTableColumns<Snapshot> = [
           snapshot={row}
           showExport={false}
           showShare={false}
+          deleteConfirmText={`是否确认删除? 此操作不可恢复!\n快照ID:${row.id}`}
           onPreview={() => previewSnapshot.invoke(row)}
           previewLoading={previewSnapshot.loading[row.id]}
           onBeforeDelete={async () => await api.deleteSnapshot({ id: row.id })}
