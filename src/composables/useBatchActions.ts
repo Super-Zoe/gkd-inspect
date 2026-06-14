@@ -46,11 +46,22 @@ export const useBatchActions = (
       const failedIds = checkedRowKeys.value.filter(
         (_, i) => results[i].status === 'rejected',
       );
+      const successIds = checkedRowKeys.value.filter(
+        (_, i) => results[i].status === 'fulfilled',
+      );
       if (failedIds.length) {
-        message.warning(`删除失败 ${failedIds.length} 个快照`);
-        checkedRowKeys.value = failedIds;
-        return;
+        message.warning(
+          `删除成功 ${successIds.length} 个，失败 ${failedIds.length} 个`,
+        );
       }
+      await Promise.allSettled(
+        successIds.map(async (k) => {
+          await snapshotStorage.removeItem(k);
+        }),
+      );
+      checkedRowKeys.value = failedIds;
+      await options.onAfterDelete?.();
+      return;
     }
     await Promise.allSettled(
       checkedRowKeys.value.map((k) => snapshotStorage.removeItem(k)),
