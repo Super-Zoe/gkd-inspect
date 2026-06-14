@@ -1,5 +1,7 @@
 import { delay } from './others';
 
+export type TaskLike = { loading: boolean; invoke: (...args: any[]) => void };
+
 export const useTask = <T extends (...args: any[]) => Promise<void>>(
   fn: T,
   miniInterval = 0,

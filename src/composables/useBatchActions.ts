@@ -1,5 +1,5 @@
 import { showTextDLg, waitShareAgree } from '@/utils/dialog';
-import { dialog } from '@/utils/discrete';
+import { dialog, message } from '@/utils/discrete';
 import {
   batchCreateImageId,
   batchCreateZipUrl,
@@ -40,11 +40,15 @@ export const useBatchActions = (
       });
     });
     if (options.beforeDeleteItem) {
-      await Promise.all(
+      const results = await Promise.allSettled(
         checkedRowKeys.value.map((k) => options.beforeDeleteItem!(k)),
       );
+      const failed = results.filter((r) => r.status === 'rejected').length;
+      if (failed) {
+        message.warning(`删除失败 ${failed} 个快照`);
+      }
     }
-    await Promise.all(
+    await Promise.allSettled(
       checkedRowKeys.value.map((k) => snapshotStorage.removeItem(k)),
     );
     checkedRowKeys.value = [];

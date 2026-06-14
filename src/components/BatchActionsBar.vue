@@ -1,11 +1,13 @@
 <script setup lang="tsx">
+import type { TaskLike } from '@/utils/task';
+
 defineProps<{
   checkedCount: number;
-  batchDelete: { loading: boolean; invoke: () => void };
-  batchDownloadImage: { loading: boolean; invoke: () => void };
-  batchDownloadZip: { loading: boolean; invoke: () => void };
-  batchShareImageUrl: { loading: boolean; invoke: () => void };
-  batchShareZipUrl: { loading: boolean; invoke: () => void };
+  batchDelete: TaskLike;
+  batchDownloadImage: TaskLike;
+  batchDownloadZip: TaskLike;
+  batchShareImageUrl: TaskLike;
+  batchShareZipUrl: TaskLike;
 }>();
 </script>
 <template>
