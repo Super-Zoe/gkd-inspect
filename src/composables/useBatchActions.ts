@@ -8,12 +8,12 @@ import {
 } from '@/utils/export';
 import { snapshotStorage } from '@/utils/snapshot';
 import { useTask } from '@/utils/task';
-import { getImagUrl } from '@/utils/url';
+import { getImagUrl, getImportUrl } from '@/utils/url';
 
 export const useBatchActions = (
   checkedRowKeys: Ref<number[]>,
   options: {
-    onAfterDelete?: () => void;
+    onAfterDelete?: () => void | Promise<void>;
     beforeDeleteItem?: (id: number) => Promise<unknown>;
   } = {},
 ) => {
@@ -43,16 +43,20 @@ export const useBatchActions = (
       const results = await Promise.allSettled(
         checkedRowKeys.value.map((k) => options.beforeDeleteItem!(k)),
       );
-      const failed = results.filter((r) => r.status === 'rejected').length;
-      if (failed) {
-        message.warning(`删除失败 ${failed} 个快照`);
+      const failedIds = checkedRowKeys.value.filter(
+        (_, i) => results[i].status === 'rejected',
+      );
+      if (failedIds.length) {
+        message.warning(`删除失败 ${failedIds.length} 个快照`);
+        checkedRowKeys.value = failedIds;
+        return;
       }
     }
     await Promise.allSettled(
       checkedRowKeys.value.map((k) => snapshotStorage.removeItem(k)),
     );
     checkedRowKeys.value = [];
-    options.onAfterDelete?.();
+    await options.onAfterDelete?.();
   });
 
   const batchDownloadImage = useTask(async () => {
@@ -75,8 +79,7 @@ export const useBatchActions = (
     await waitShareAgree();
     const zipUrls = await batchCreateZipUrl(await checkedSnapshots());
     showTextDLg({
-      content:
-        zipUrls.map((s) => location.origin + '/i/' + s).join(`\n`) + `\n`,
+      content: zipUrls.map((s) => getImportUrl(s)).join(`\n`) + `\n`,
     });
   });
 
