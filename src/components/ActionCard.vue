@@ -23,7 +23,7 @@ const props = withDefaults(
     showExport?: boolean;
     showDelete?: boolean;
     showShare?: boolean;
-    deleteConfirmText?: string;
+    deleteConfirmText?: string | VNode;
   }>(),
   {
     showPreview: true,
@@ -174,7 +174,7 @@ const copy = async (content: string) => {
       @positiveClick="deleteSnapshot.invoke"
     >
       <template #icon><SvgIcon name="warn" color="red" /></template>
-      <span style="color: #d03050">{{ deleteConfirmText }} </span>
+      <Component :is="() => deleteConfirmText" style="color: #d03050" />
       <template #trigger>
         <NTooltip
           :theme-overrides="{
