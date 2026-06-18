@@ -7,7 +7,7 @@ import {
   exportSnapshotAsImageId,
   exportSnapshotAsZip,
 } from '@/utils/export';
-import { buildEmptyFn, delay } from '@/utils/others';
+import { buildEmptyFn, delay, withTimeout } from '@/utils/others';
 import { snapshotStorage } from '@/utils/snapshot';
 import { useTask } from '@/utils/task';
 import { getImportUrl, getImagUrl } from '@/utils/url';
@@ -81,11 +81,36 @@ const exportZipUrl = useTask(async () => {
 });
 
 // 5. 删除逻辑
+const DELETE_TIMEOUT = 12_000;
 const deleteSnapshot = useTask(async () => {
   if (props.onBeforeDelete) {
-    await props.onBeforeDelete(props.snapshot);
+    try {
+      await withTimeout(
+        () => props.onBeforeDelete!(props.snapshot),
+        DELETE_TIMEOUT,
+        `远程删除超时`,
+      );
+    } catch (e: any) {
+      if (e?.message?.includes(`超时`)) {
+        message.error(e.message);
+      }
+      return;
+    }
   }
-  await snapshotStorage.removeItem(props.snapshot.id);
+  try {
+    await withTimeout(
+      () => snapshotStorage.removeItem(props.snapshot.id),
+      DELETE_TIMEOUT,
+      `本地删除超时`,
+    );
+  } catch (e: any) {
+    if (e?.message?.includes(`超时`)) {
+      message.error(e.message);
+    } else {
+      message.error(`本地删除失败`);
+    }
+    return;
+  }
   await delay(500);
   props.onDelete();
 });

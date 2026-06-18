@@ -6,9 +6,12 @@ import {
   batchImageDownloadZip,
   batchZipDownloadZip,
 } from '@/utils/export';
+import { withTimeout } from '@/utils/others';
 import { snapshotStorage } from '@/utils/snapshot';
 import { useTask } from '@/utils/task';
 import { getImagUrl, getImportUrl } from '@/utils/url';
+
+const DELETE_TIMEOUT = 12_000;
 
 export const useBatchActions = (
   checkedRowKeys: Ref<number[]>,
@@ -40,33 +43,74 @@ export const useBatchActions = (
       });
     });
     if (options.beforeDeleteItem) {
-      const results = await Promise.allSettled(
-        checkedRowKeys.value.map((k) => options.beforeDeleteItem!(k)),
+      const remoteResults = await Promise.allSettled(
+        checkedRowKeys.value.map((k) =>
+          withTimeout(
+            () => options.beforeDeleteItem!(k),
+            DELETE_TIMEOUT,
+            `远程删除超时`,
+          ),
+        ),
       );
-      const failedIds = checkedRowKeys.value.filter(
-        (_, i) => results[i].status === 'rejected',
+      const remoteFailedIds = checkedRowKeys.value.filter(
+        (_, i) => remoteResults[i].status === 'rejected',
       );
-      const successIds = checkedRowKeys.value.filter(
-        (_, i) => results[i].status === 'fulfilled',
+      const remoteSuccessIds = checkedRowKeys.value.filter(
+        (_, i) => remoteResults[i].status === 'fulfilled',
       );
-      if (failedIds.length) {
+      const localResults = await Promise.allSettled(
+        remoteSuccessIds.map((k) =>
+          withTimeout(
+            () => snapshotStorage.removeItem(k),
+            DELETE_TIMEOUT,
+            `本地删除超时`,
+          ),
+        ),
+      );
+      const localFailedIds = remoteSuccessIds.filter(
+        (_, i) => localResults[i].status === 'rejected',
+      );
+      const localSuccessIds = remoteSuccessIds.filter(
+        (_, i) => localResults[i].status === 'fulfilled',
+      );
+      const allFailedIds = [...remoteFailedIds, ...localFailedIds];
+      const successCount = localSuccessIds.length;
+      const remoteFailCount = remoteFailedIds.length;
+      const localFailCount = localFailedIds.length;
+      if (successCount) {
+        message.success(`删除成功 ${successCount} 个`);
+      }
+      if (remoteFailCount || localFailCount) {
         message.warning(
-          `删除成功 ${successIds.length} 个，失败 ${failedIds.length} 个`,
+          `远程删除失败 ${remoteFailCount} 个，本地删除失败 ${localFailCount} 个`,
         );
       }
-      await Promise.allSettled(
-        successIds.map(async (k) => {
-          await snapshotStorage.removeItem(k);
-        }),
+      checkedRowKeys.value = allFailedIds;
+    } else {
+      const localResults = await Promise.allSettled(
+        checkedRowKeys.value.map((k) =>
+          withTimeout(
+            () => snapshotStorage.removeItem(k),
+            DELETE_TIMEOUT,
+            `本地删除超时`,
+          ),
+        ),
       );
-      checkedRowKeys.value = failedIds;
-      await options.onAfterDelete?.();
-      return;
+      const localFailedIds = checkedRowKeys.value.filter(
+        (_, i) => localResults[i].status === 'rejected',
+      );
+      const localSuccessIds = checkedRowKeys.value.filter(
+        (_, i) => localResults[i].status === 'fulfilled',
+      );
+      if (localFailedIds.length) {
+        message.warning(
+          `删除成功 ${localSuccessIds.length} 个，失败 ${localFailedIds.length} 个`,
+        );
+      } else {
+        message.success(`删除成功 ${localSuccessIds.length} 个`);
+      }
+      checkedRowKeys.value = localFailedIds;
     }
-    await Promise.allSettled(
-      checkedRowKeys.value.map((k) => snapshotStorage.removeItem(k)),
-    );
-    checkedRowKeys.value = [];
     await options.onAfterDelete?.();
   });
 
