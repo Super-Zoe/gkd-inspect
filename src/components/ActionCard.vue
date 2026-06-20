@@ -83,14 +83,16 @@ const exportZipUrl = useTask(async () => {
 // 5. 删除逻辑
 const DELETE_TIMEOUT = 12_000;
 const deleteSnapshot = useTask(async () => {
+  // 远程
   if (props.onBeforeDelete) {
     try {
       await props.onBeforeDelete!(props.snapshot);
     } catch {
-      message.error(`远程删除失败`);
+      // src\utils\api.ts已经做出提示
       return;
     }
   }
+  // 本地
   try {
     await withTimeout(
       () => snapshotStorage.removeItem(props.snapshot.id),
@@ -98,11 +100,7 @@ const deleteSnapshot = useTask(async () => {
       `本地删除超时`,
     );
   } catch (e: any) {
-    if (e?.message?.includes(`超时`)) {
-      message.error(e.message);
-    } else {
-      message.error(`本地删除失败`);
-    }
+    message.error(`本地删除失败: ${e?.message}`);
     return;
   }
   await delay(500);
@@ -115,7 +113,7 @@ const copy = async (content: string) => {
     await navigator.clipboard.writeText(content);
     message.success(`复制成功`);
   } catch {
-    message.error(`复制失败`); // 修复了原本失败也提示“成功”的 bug
+    message.error(`复制失败`); // 修复错误的图标显示
   }
 };
 </script>
