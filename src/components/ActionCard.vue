@@ -85,15 +85,9 @@ const DELETE_TIMEOUT = 12_000;
 const deleteSnapshot = useTask(async () => {
   if (props.onBeforeDelete) {
     try {
-      await withTimeout(
-        () => props.onBeforeDelete!(props.snapshot),
-        DELETE_TIMEOUT,
-        `远程删除超时`,
-      );
-    } catch (e: any) {
-      if (e?.message?.includes(`超时`)) {
-        message.error(e.message);
-      }
+      await props.onBeforeDelete!(props.snapshot);
+    } catch {
+      message.error(`远程删除失败`);
       return;
     }
   }

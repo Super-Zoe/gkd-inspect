@@ -44,13 +44,7 @@ export const useBatchActions = (
     });
     if (options.beforeDeleteItem) {
       const remoteResults = await Promise.allSettled(
-        checkedRowKeys.value.map((k) =>
-          withTimeout(
-            () => options.beforeDeleteItem!(k),
-            DELETE_TIMEOUT,
-            `远程删除超时`,
-          ),
-        ),
+        checkedRowKeys.value.map((k) => options.beforeDeleteItem!(k)),
       );
       const remoteFailedIds = checkedRowKeys.value.filter(
         (_, i) => remoteResults[i].status === 'rejected',
