@@ -164,13 +164,7 @@ const columns: DataTableColumns<Snapshot> = [
 ];
 
 const checkedRowKeys = ref<number[]>([]);
-const {
-  batchDelete,
-  batchDownloadImage,
-  batchDownloadZip,
-  batchShareImageUrl,
-  batchShareZipUrl,
-} = useBatchActions(checkedRowKeys, {
+const { batchDelete } = useBatchActions(checkedRowKeys, {
   beforeDeleteItem: async (id) => await api.deleteSnapshot({ id }),
   onAfterDelete: async () => {
     const result = await api.getSnapshots();
@@ -459,10 +453,6 @@ const placeholder = `
         <BatchActionsBar
           :checkedCount="checkedRowKeys.length"
           :batchDelete="batchDelete"
-          :batchDownloadImage="batchDownloadImage"
-          :batchDownloadZip="batchDownloadZip"
-          :batchShareImageUrl="batchShareImageUrl"
-          :batchShareZipUrl="batchShareZipUrl"
         />
         <NTooltip>
           <template #trigger>

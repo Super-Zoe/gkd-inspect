@@ -18,6 +18,7 @@ export const useBatchActions = (
     beforeDeleteItem?: (id: number) => Promise<unknown>;
   } = {},
 ) => {
+  // Devicepage暂不支持批量操作
   const checkedSnapshots = () => {
     return Promise.all(
       checkedRowKeys.value.map(
