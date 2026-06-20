@@ -47,6 +47,7 @@ export const delay = async (n = 0) => {
     setTimeout(res, n);
   });
 };
+export const DELETE_TIMEOUT = 12_000;
 
 export const withTimeout = <T>(
   fn: () => Promise<T>,

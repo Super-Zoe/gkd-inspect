@@ -7,7 +7,12 @@ import {
   exportSnapshotAsImageId,
   exportSnapshotAsZip,
 } from '@/utils/export';
-import { buildEmptyFn, delay, withTimeout } from '@/utils/others';
+import {
+  buildEmptyFn,
+  delay,
+  withTimeout,
+  DELETE_TIMEOUT,
+} from '@/utils/others';
 import { snapshotStorage } from '@/utils/snapshot';
 import { useTask } from '@/utils/task';
 import { getImportUrl, getImagUrl } from '@/utils/url';
@@ -81,7 +86,6 @@ const exportZipUrl = useTask(async () => {
 });
 
 // 5. 删除逻辑
-const DELETE_TIMEOUT = 12_000;
 const deleteSnapshot = useTask(async () => {
   // 远程
   if (props.onBeforeDelete) {

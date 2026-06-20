@@ -6,12 +6,10 @@ import {
   batchImageDownloadZip,
   batchZipDownloadZip,
 } from '@/utils/export';
-import { withTimeout } from '@/utils/others';
+import { withTimeout, DELETE_TIMEOUT } from '@/utils/others';
 import { snapshotStorage } from '@/utils/snapshot';
 import { useTask } from '@/utils/task';
 import { getImagUrl, getImportUrl } from '@/utils/url';
-
-const DELETE_TIMEOUT = 12_000;
 
 export const useBatchActions = (
   checkedRowKeys: Ref<number[]>,
