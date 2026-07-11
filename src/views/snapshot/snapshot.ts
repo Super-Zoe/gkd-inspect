@@ -73,11 +73,7 @@ export const useSnapshotStore = createSharedComposable(() => {
   const screenshot = shallowRef<ArrayBuffer>();
   const screenshotUrl = computed(() => {
     if (screenshot.value) {
-      return URL.createObjectURL(
-        new Blob([screenshot.value], {
-          type: 'image/png',
-        }),
-      );
+      return URL.createObjectURL(new Blob([screenshot.value]));
     }
     return undefined;
   });
