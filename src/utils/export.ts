@@ -66,17 +66,28 @@ export const batchZipDownloadZip = async (snapshots: Snapshot[]) => {
 };
 
 const comporessPngToJpg = async (imgBf: ArrayBuffer): Promise<Blob> => {
+  const view = new Uint8Array(imgBf);
+  let mime = 'image/png';
+  if (
+    view.length >= 12 &&
+    view[0] === 0x52 &&
+    view[1] === 0x49 &&
+    view[2] === 0x46 &&
+    view[3] === 0x46 &&
+    view[8] === 0x57 &&
+    view[9] === 0x45 &&
+    view[10] === 0x42 &&
+    view[11] === 0x50
+  ) {
+    mime = 'image/webp';
+  }
   return new Promise<Blob>((res, rej) => {
-    // 移除写死的 image/png
-    new Compressor(new Blob([imgBf]), {
+    const blob = new Blob([imgBf], { type: mime });
+    new Compressor(blob, {
       quality: 0.75,
       convertSize: 200_000,
-      success(file) {
-        res(file);
-      },
-      error(error) {
-        rej(error);
-      },
+      success: res,
+      error: rej,
     });
   });
 };
