@@ -11,8 +11,9 @@ import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import type { SortState } from 'naive-ui/es/data-table/src/interface';
 import pLimit from 'p-limit';
 import JSON5 from 'json5';
-import SvgIcon from '@/components/SvgIcon.vue';
-import { dialog } from '@/utils/discrete';
+import ActionCard from '@/components/ActionCard.vue';
+import BatchActionsBar from '@/components/BatchActionsBar.vue';
+import { useBatchActions } from '@/composables/useBatchActions';
 
 const router = useRouter();
 const { api, origin, serverInfo } = useDeviceApi();
@@ -129,6 +130,9 @@ const previewSnapshot = useBatchTask(
 );
 
 const columns: DataTableColumns<Snapshot> = [
+  {
+    type: 'selection',
+  },
   ctimeCol,
   appNameCol,
   appIdCol,
@@ -139,59 +143,35 @@ const columns: DataTableColumns<Snapshot> = [
     key: `actions`,
     title: `操作`,
     fixed: 'right',
-    width: `180px`, // 搞宽点要不然装不下
+    width: `160px`,
     render(row) {
       return (
-        <NSpace size="small">
-          <NButton
-            size="small"
-            loading={previewSnapshot.loading[row.id]}
-            onClick={() => previewSnapshot.invoke(row)}
-          >
-            查看
-          </NButton>
-          <NButton
-            size="small"
-            type="error"
-            secondary
-            loading={deleteSnapshot.loading[row.id]}
-            onClick={() => deleteSnapshot.invoke(row)}
-          >
-            {{
-              icon: () => <SvgIcon name="delete" />,
-              default: () => '删除',
-            }}
-          </NButton>
-        </NSpace>
+        <ActionCard
+          snapshot={row}
+          showExport={false}
+          showShare={false}
+          deleteConfirmText={`是否确认删除? 此操作不可恢复!\n快照ID:${row.id}`}
+          onPreview={() => previewSnapshot.invoke(row)}
+          previewLoading={previewSnapshot.loading[row.id]}
+          onBeforeDelete={async () => await api.deleteSnapshot({ id: row.id })}
+          onDelete={() => {
+            snapshots.value = snapshots.value.filter((s) => s.id !== row.id);
+          }}
+        />
       );
     },
   },
 ];
 
-const deleteSnapshot = useBatchTask(
-  async (row: Snapshot) => {
-    const confirmed = await new Promise<boolean>((res) => {
-      dialog.warning({
-        title: '删除快照',
-        content: `是否确认删除快照 ID: ${row.id}？此操作不可恢复。`,
-        positiveText: '确认删除',
-        negativeText: '取消',
-        onPositiveClick: () => res(true),
-        onNegativeClick: () => res(false),
-        onClose: () => res(false),
-      });
-    });
-    if (!confirmed) return;
-    await api.deleteSnapshot({ id: row.id });
-    await Promise.all([
-      snapshotStorage.removeItem(row.id),
-      screenshotStorage.removeItem(row.id),
-    ]);
-    snapshots.value = snapshots.value.filter((s) => s.id !== row.id);
-    message.success('删除成功');
+const checkedRowKeys = ref<number[]>([]);
+const { batchDelete } = useBatchActions(checkedRowKeys, {
+  beforeDeleteItem: async (id) => await api.deleteSnapshot({ id }),
+  onAfterDelete: async () => {
+    const result = await api.getSnapshots();
+    result.sort((a, b) => b.id - a.id);
+    snapshots.value = result;
   },
-  (r) => r.id,
-);
+});
 
 const pagination = shallowReactive<PaginationProps>({
   page: 1,
@@ -440,10 +420,24 @@ const placeholder = `
           class="gkd_code"
           :style="{ width: `240px` }"
           @keyup.enter="connect.invoke"
-        />
-        <NButton :loading="connect.loading" @click="connect.invoke">
-          刷新连接
-        </NButton>
+        >
+          <template #suffix>
+            <NTooltip>
+              <template #trigger>
+                <NButton
+                  text
+                  style="--n-icon-size: 20px"
+                  :loading="connect.loading"
+                  @click="connect.invoke"
+                >
+                  <template #icon><SvgIcon name="refresh" /></template>
+                </NButton>
+              </template>
+              刷新连接
+            </NTooltip>
+          </template>
+        </NInput>
+
         <div
           v-if="serverInfo"
           gkd_code
@@ -456,28 +450,70 @@ const placeholder = `
         </div>
       </NInputGroup>
       <template v-if="serverInfo">
-        <NButton
-          :loading="captureSnapshot.loading"
-          @click="captureSnapshot.invoke"
-        >
+        <BatchActionsBar
+          :checkedCount="checkedRowKeys.length"
+          :batchDelete="batchDelete"
+        />
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              :loading="captureSnapshot.loading"
+              @click="captureSnapshot.invoke"
+            >
+              <template #icon><SvgIcon name="Snapshot" /></template>
+            </NButton>
+          </template>
           捕获快照
-        </NButton>
-        <NButton
-          :loading="downloadAllSnapshot.loading"
-          @click="downloadAllSnapshot.invoke"
-        >
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              :loading="downloadAllSnapshot.loading"
+              @click="downloadAllSnapshot.invoke"
+            >
+              <template #icon><SvgIcon name="Down-all" /></template>
+            </NButton>
+          </template>
           下载所有快照
-        </NButton>
-        <NButton @click="showSubsModel = true"> 修改内存订阅 </NButton>
-        <NButton @click="showSelectorModel = true"> 执行选择器 </NButton>
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              @click="showSubsModel = true"
+            >
+              <template #icon><SvgIcon name="CacheSub" /></template>
+            </NButton>
+          </template>
+          修改内存订阅
+        </NTooltip>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              text
+              style="--n-icon-size: 24px"
+              @click="showSelectorModel = true"
+            >
+              <template #icon><SvgIcon name="Exe-Sel" /></template>
+            </NButton>
+          </template>
+          执行选择器
+        </NTooltip>
       </template>
     </div>
     <NDataTable
+      v-model:checkedRowKeys="checkedRowKeys"
       striped
       flex-height
       :data="snapshots"
       :columns="columns"
       :pagination="pagination"
+      :rowKey="(r:Snapshot)=>r.id"
       size="small"
       class="flex-1"
       :scrollX="1200"
