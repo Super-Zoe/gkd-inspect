@@ -7,7 +7,7 @@ const { settingsStore } = useStorageStore();
     v-model:show="globalStore.githubErrorDlgVisible"
     preset="dialog"
     title="生成分享链接失败"
-    type="success"
+    type="error"
   >
     <div>生成分享链接需要以下条件</div>
     <div>
@@ -21,7 +21,7 @@ const { settingsStore } = useStorageStore();
     v-model:show="globalStore.networkErrorDlgVisible"
     preset="dialog"
     title="访问其它域名资源失败"
-    type="success"
+    type="error"
   >
     <div>访问其它域名资源需要以下条件</div>
     <div>
